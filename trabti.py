@@ -1,4 +1,4 @@
-#Trabalho de TI --compactador e descompactador huffman--
+#Trabalho de TI -compactador e descompactador huffman-
 #Ricardo Castro 	11/0151884
 #Victor Tsujimoto 	09/0134885
 #este trabalho foi feito em python ver3.6
