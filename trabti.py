@@ -3,14 +3,27 @@
 #Victor Tsujimoto 	09/0134885
 #este trabalho foi feito em python ver3.6
 
+
+# Entrada
+def saida():
+	print('==========================================');
+	print('\nEntropia:');
+	print('\nComprimento médio:');
+	print('\nTaxa de compressão:');
+
+# Saida
+
+
 #função para compactar
 def comp(arquivo):
+	arq = open(arquivo,'r+')
 	print("modo compactação")
 
 #função para descompactar
 def descomp(arquivo):
 	print("modo descompactação")
 
+# Entrada
 print("bem vindo ao C-D huffman!")
 modo = input("Em que modo deseja operar?\n(pressione -c para modo compactação e -d para descompactação)")
 
@@ -21,5 +34,6 @@ elif (modo=='d'):
 	arquivo = input("qual arquivo deseja descompactar?")
 	descomp(arquivo)
 else:
-	print("exit!")
-input()
+	print("Opção Inválida. Exit!")
+# Saida
+saida()
