@@ -35,10 +35,6 @@ modo = input("Em que modo deseja operar?\n(pressione -c para modo compactação 
 
 if(modo=='c' or modo=='-c' or modo=='C' or modo=='-C'):
 	arquivo = input("qual arquivo deseja compactar?")
-
-
-
-
 	comp(arquivo)
 elif (modo=='d' or modo=='-d' or modo=='D' or modo=='-D'):
 	arquivo = input("qual arquivo deseja descompactar?")
