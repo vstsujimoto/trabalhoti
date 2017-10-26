@@ -33,7 +33,17 @@ with open("teste.txt", "rb") as file:
 #faz a contagem de quantos bytes tem no arquivo 
 file.close()
 #ordena lista pela ordem 
-freq.sort(key=itemgetter(1),reverse=True)
+freq.sort(key=itemgetter(1))
+#conta total de bytes
+total =0 
+for par in freq:
+    total += par[1]
+pos = 0
+#transforma ocorrencias em percentual
+for par in freq:
+    freq[pos][1]=round(freq[pos][1]/total,3)
+    pos+=1
+#mostra matriz    
 print(freq)
 
 #input()
