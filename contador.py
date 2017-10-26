@@ -1,5 +1,7 @@
 #contador de frequencias
-    
+
+from operator import itemgetter
+
 #cria uma lista sem elementos para mapear os bytes e suas frequencias
 freq = []	
 with open("teste.txt", "rb") as file:
@@ -30,5 +32,8 @@ with open("teste.txt", "rb") as file:
         #print(byte)
 #faz a contagem de quantos bytes tem no arquivo 
 file.close()
+#ordena lista pela ordem 
+freq.sort(key=itemgetter(1),reverse=True)
 print(freq)
+
 #input()
