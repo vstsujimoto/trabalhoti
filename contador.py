@@ -30,11 +30,10 @@ with open("teste.txt", "rb") as file:
                 freq.append(par)
         byte = file.read(1)
         #print(byte)
-#faz a contagem de quantos bytes tem no arquivo 
 file.close()
 #ordena lista pela ordem 
 freq.sort(key=itemgetter(1))
-#conta total de bytes
+#faz a contagem de quantos bytes tem no arquivo 
 total =0 
 for par in freq:
     total += par[1]
