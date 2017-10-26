@@ -31,7 +31,7 @@ with open("teste.txt", "rb") as file:
         byte = file.read(1)
         #print(byte)
 file.close()
-#ordena lista pela ordem 
+#ordena lista pela ordem crescente de freq
 freq.sort(key=itemgetter(1))
 #faz a contagem de quantos bytes tem no arquivo 
 total =0 
