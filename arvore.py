@@ -35,6 +35,7 @@ def conta(arquivo):
 
 #árvore de codificação
 freq = conta("teste.txt")
+heapify(freq)
 #a árvore de codificação será montada em uma lista, utilizando o conceito de heap
 #ao final, o último elemento da lista será o nó raiz com a soma total dos elementos, assim não haverá mais iterações necessárias
 while len(freq) > 1:
