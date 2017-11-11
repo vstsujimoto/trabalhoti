@@ -48,7 +48,8 @@ while len(freq) > 1:
             par[1] = '0' + par[1]
         for par in rig[1:]:
             par[1] = '1' + par[1]
-#coloca um novo elemento na arvore correspondente à soma dos elementos removidos
+#adiciona um novo elemento à arvore com peso correspondente à soma dos pesos dos elementos removidos
+#os elementos removidos são concatenados à esse novo elemento
         heappush(freq, [lef[0] + rig[0]] + lef[1:] + rig[1:])
 
 totalbits = 8*freq[0][0]
