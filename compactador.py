@@ -101,4 +101,4 @@ for par in freq:
 
 print("Lav =",round(l,2))
 print("H(x) =",round(h,2))
-print("taxa de compressão =", round(tamanho/(totalbytes*8)))
+print("taxa de compressão =", round(tamanho/(totalbytes*8),2))
