@@ -99,6 +99,6 @@ for par in freq:
             h=h-p*math.log(p,2)
             break
 
-print("Lav =",round(l,2)
-print("H(x) =",round(h,2)
-print("taxa de compressão =", tamanho/(totalbytes*8))
+print("Lav =",round(l,2))
+print("H(x) =",round(h,2))
+print("taxa de compressão =", round(tamanho/(totalbytes*8)))
