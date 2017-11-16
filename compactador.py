@@ -60,20 +60,38 @@ def codifica(arvore):
     del (arvore[0][0])
     tamanho=0
 #abre arquivo a ser escrito
-    with open("codificado.txt","w") as codificado:
+    with open("codificado.bin","wb") as codificado:
 #abre arquivo a ser lido
         with open ("teste.txt", "rb") as file:
 #le byte
             byte = file.read(1)
+            array=''
+            escreve=''
             while byte:
 #procura na matriz pelo byte
                 for item in arvore[0]:
-                    if item[0] == byte:
-#escreve codigo no novo arquivo
-                        codificado.write(item[1])
-                        tamanho+=len(item[1])
+                    if item[0]==byte:
+#escreve byte a byte os codigos no novo arquivo
+                        for i in item[1]:
+                            array+=i
+                        if len(array)>=8:
+                            escreve=int(array[:8],2)
+                            escreve=bytes([escreve])
+                            codificado.write(escreve)
+                            tamanho+=1
+                            array=array[8:]
                         break
                 byte=file.read(1)
+#completa com zeros o ultimo byte a ser escrito
+            if len(array)<8:
+                escreve=array
+                restam=8-len(array)
+                while restam>0:
+                    escreve+='0'
+                    restam-=1
+                escreve=bytes([int(escreve,2)])
+                codificado.write(escreve)
+                tamanho+=1
         file.close()
     codificado.close()
     return tamanho
@@ -101,4 +119,4 @@ for par in freq:
 
 print("Lav =",round(l,2))
 print("H(x) =",round(h,2))
-print("taxa de compressão =", round(tamanho/(totalbytes*8),2))
+print("taxa de compressão =", round(tamanho/totalbytes,2))
