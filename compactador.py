@@ -1,6 +1,7 @@
-#contador de frequencias
 from heapq import heapify, heappush, heappop
 import math
+
+#contador de frequencias
 
 def conta(arquivo):
 #cria uma lista sem elementos para mapear os bytes e suas frequencias
@@ -56,43 +57,54 @@ def tree(freq):
 #fim da função que monta a arvore de codigos
 
 #codifica
-def codifica(arvore):
+#recebe arvore e codifica o arquivo a ser compactado
+def codifica(arvore,novo,arquivo):
     del (arvore[0][0])
     tamanho=0
-#abre arquivo a ser escrito
-    with open("codificado.bin","wb") as codificado:
-#abre arquivo a ser lido
-        with open ("teste.txt", "rb") as file:
-#le byte
-            byte = file.read(1)
-            array=''
-            escreve=''
-            while byte:
-#procura na matriz pelo byte
-                for item in arvore[0]:
-                    if item[0]==byte:
-#escreve byte a byte os codigos no novo arquivo
-                        for i in item[1]:
-                            array+=i
-                        if len(array)>=8:
-                            escreve=int(array[:8],2)
-                            escreve=bytes([escreve])
-                            codificado.write(escreve)
-                            tamanho+=1
-                            array=array[8:]
-                        break
-                byte=file.read(1)
-#completa com zeros o ultimo byte a ser escrito
-            if len(array)<8:
-                escreve=array
-                restam=8-len(array)
-                while restam>0:
-                    escreve+='0'
-                    restam-=1
-                escreve=bytes([int(escreve,2)])
-                codificado.write(escreve)
+#abre arquivo a ser escrito e arquivo a ser lido
+    with open(novo,"wb") as codificado, open (arquivo, "rb") as file:
+        #escreve cabeçalho contendo a arvore
+        #escreve numero de pares byte/codigo
+        codificado.write(bytes([len(arvore[0])]))
+        tamanho+=1
+        for par in arvore[0]:
+            codificado.write(par[0])
+            tamanho+=1
+            for i in par[1]:
+                codificado.write(bytes([ord(i)]))
                 tamanho+=1
-        file.close()
+            codificado.write(bytes([ord(' ')]))
+            tamanho+=1
+#le byte
+        byte = file.read(1)
+        array=''
+        escreve=''
+        while byte:
+#procura na matriz pelo byte
+            for item in arvore[0]:
+                if item[0]==byte:
+#escreve byte a byte os codigos no novo arquivo
+                    for i in item[1]:
+                        array+=i
+                    if len(array)>=8:
+                        escreve=int(array[:8],2)
+                        escreve=bytes([escreve])
+                        codificado.write(escreve)
+                        tamanho+=1
+                        array=array[8:]
+                    break
+            byte=file.read(1)
+#completa com zeros o ultimo byte a ser escrito
+        if len(array)<8:
+            escreve=array
+            restam=8-len(array)
+            while restam>0:
+                escreve+='0'
+                restam-=1
+            escreve=bytes([int(escreve,2)])
+            codificado.write(escreve)
+            tamanho+=1
+    file.close()
     codificado.close()
     return tamanho
 
@@ -101,7 +113,7 @@ def codifica(arvore):
 freq = conta("teste.txt")
 arvore = tree(conta("teste.txt"))
 totalbytes = arvore[0][0]
-tamanho=codifica(arvore)
+tamanho=codifica(arvore,"teste.txt.huff","teste.txt")
 
 #comprimento medio
 l=0
@@ -116,7 +128,8 @@ for par in freq:
             l=l+ p*len(item[1])
             h=h-p*math.log(p,2)
             break
-
+print(totalbytes)
+print(tamanho)
 print("Lav =",round(l,2))
 print("H(x) =",round(h,2))
-print("taxa de compressão =", round(tamanho/totalbytes,2))
+print("taxa de compressão =", round(totalbytes/tamanho,2))
