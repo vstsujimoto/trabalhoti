@@ -128,8 +128,7 @@ for par in freq:
             l=l+ p*len(item[1])
             h=h-p*math.log(p,2)
             break
-print(totalbytes)
-print(tamanho)
+
 print("Lav =",round(l,2))
 print("H(x) =",round(h,2))
 print("taxa de compressão =", round(totalbytes/tamanho,2))
