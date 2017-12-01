@@ -32,10 +32,20 @@ class arvore(object):
                     noatual.direita=no()
                     noatual=noatual.direita
         noatual.valor=byte
+
+    def temfilho(self,noatual, c):
+        if (c=='0'):
+            if (noatual.esquerda):
+                return True
+        elif (c=='1'):
+            if (noatual.direita):
+                return True
+        else:
+            return False
         
 #descompacta
 
-with open("teste.txt.huff", "rb") as desc:
+with open("teste.txt.huff", "rb")as desc, open("descompactado.txt", "wb")as novo :
     cab = desc.read(1)
     tamanho = cab[0] +1
     vetor=[]
@@ -58,13 +68,45 @@ with open("teste.txt.huff", "rb") as desc:
         arvore.insere(arvore.raiz,i[0],i[1])
 
 #converte o arquivo para forma legivel
-    byte=desc.read(1)
+    #byte=desc.read(1)
+    #print(byte)
+    array=[]
+    root=arvore.raiz
     while byte:
-        vetor = bin(byte[0])
+        if len(array)==0:
+            byte=desc.read(1)
+            #print(byte)
+            vetor = bin(byte[0])
+            vetor = vetor[2:]
+            #print(vetor)
+            vetorr=[]
+            for i in vetor:
+                vetorr.append(i)
+            while len(vetorr)<8:
+                vetorr.insert(0,'0')
+            array+=vetorr
+            vetor=[]
+#se vetor nao esta vazio
+        elif len(array)>0:
+            #print(array)
+            c=array.pop(0)
+            #print(c)
+#se no tem filhos
+            if arvore.temfilho(root,c)==True:
+                #print("true")
+                if c=='0':
+                    root=root.esquerda
+                elif c=='1':
+                    root=root.direita
+#se nao tiver filhos
+            else:
+                #print("false")
+                novo.write(root.valor)
+                array.insert(0,c)
+                #print(root.valor)
+                root=arvore.raiz
+        
         
     
 desc.close()
-
-for i in vetor:
-    print(i[0])
-    print(i[1])
+novo.close()
