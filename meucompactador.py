@@ -150,7 +150,7 @@ def codifica(arvore,novo,arquivo):
                         array=array[8:]
                     break
             byte=file.read(1)
-#completa com zeros o ultimo byte a ser escrito
+#completa com 1s o ultimo byte a ser escrito
         if len(array)<8:
             escreve=array
             restam=8-len(array)
